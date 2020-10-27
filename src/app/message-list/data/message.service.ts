@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Message, uniqueMsg } from './message';
 import { delay } from 'rxjs/operators';
-import { Delete, Page, PageRequest, Sort } from 'src/app/shared/pagination/page';
+import { Delete, Page, PageRequest, Sort } from '../../shared/pagination/page';
 import * as _ from 'lodash';
 
 @Injectable({

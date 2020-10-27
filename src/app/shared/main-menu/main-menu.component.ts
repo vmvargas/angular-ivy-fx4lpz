@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CONFIG } from 'src/app/config/config';
+import { CONFIG } from '../../config/config';
 
 @Component({
   selector: 'app-main-menu',

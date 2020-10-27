@@ -1,8 +1,8 @@
 import { DataSource } from '@angular/cdk/collections';
 import { Observable, Subject, BehaviorSubject, combineLatest } from 'rxjs';
 import { switchMap, startWith, map, share, tap } from 'rxjs/operators';
-import { CONFIG } from 'src/app/config/config';
-import { Page, Sort, PageRequest, PaginatedEndpoint, Delete } from './page';
+import { CONFIG } from '../../config/config';
+import { Page, Sort, PaginatedEndpoint, Delete } from './page';
 
 export interface SimpleDataSource<T> extends DataSource<T> {
   connect(): Observable<T[]>;
