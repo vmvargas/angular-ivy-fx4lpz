@@ -1,0 +1,14 @@
+.message-container {
+  padding: 2rem;
+}
+.message-list,
+.message-header {
+  width: 70%;
+}
+.message-item {
+  padding: 1rem;
+  width: 100%;
+  &__label {
+    color: rgba(0, 0, 0, 0.4);
+  }
+}

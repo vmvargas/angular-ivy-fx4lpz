@@ -1,4 +1,8 @@
-<hello name="{{ name }}"></hello>
-<p>
-  Start editing to see some magic happen :)
-</p>
+<main fxLayout="column">
+  <section class="content">
+    <app-main-menu></app-main-menu>
+
+    <router-outlet></router-outlet>
+  </section>
+  <app-footer class="footer"></app-footer>
+</main>

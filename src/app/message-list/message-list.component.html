@@ -1,0 +1,58 @@
+<section
+  class="message-container"
+  fxLayout="column"
+  fxLayoutAlign="center center"
+  fxLayoutGap="1rem"
+>
+  <div class="message-header" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1rem">
+    <mat-form-field appearance="fill">
+      <mat-label>{{ labels.sortBy }}</mat-label>
+      <mat-select (selectionChange)="setSortCriteria($event.value)" [formControl]="sortBySelected">
+        <mat-option *ngFor="let op of sortByOptions" [value]="op.value">{{ op.label }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-flat-button color="warn" *ngIf="isOneSelected()" (click)="deleteSelected()">
+      <mat-icon>delete</mat-icon> {{ labels.delete }}
+    </button>
+  </div>
+  <div class="message-list" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="1rem">
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+      <ng-container matColumnDef="message-container">
+        <mat-header-cell *matHeaderCellDef> {{ labels.title }} </mat-header-cell>
+        <mat-cell *matCellDef="let msg">
+          <mat-checkbox
+            (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(msg) : null"
+            [checked]="selection.isSelected(msg)"
+          >
+          </mat-checkbox>
+          <div class="message-item" (click)="$event ? selection.toggle(msg) : null">
+            <div>
+              <span class="message-item__label">{{ labels.messageItem.content }}</span>
+              {{ msg.content }}
+            </div>
+            <div>
+              <span class="message-item__label">{{ labels.messageItem.senderUuid }}</span>
+              {{ msg.senderUuid }}
+            </div>
+            <div>
+              <span class="message-item__label">{{ labels.messageItem.sentAt }}</span>
+              {{ msg.sentAt | customLongDateTimePipe }}
+            </div>
+          </div>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="['message-container']"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: ['message-container']"></mat-row>
+    </mat-table>
+    <mat-paginator
+      *ngIf="dataSource.page$ | async as page"
+      [length]="page.totalElements"
+      [pageSize]="page.size"
+      [pageIndex]="page.number"
+      [hidePageSize]="true"
+      (page)="dataSource.fetch($event.pageIndex)"
+    >
+    </mat-paginator>
+  </div>
+</section>
