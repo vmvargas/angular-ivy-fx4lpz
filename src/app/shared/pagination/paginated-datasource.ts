@@ -1,8 +1,8 @@
-import { DataSource } from '@angular/cdk/collections';
-import { Observable, Subject, BehaviorSubject, combineLatest } from 'rxjs';
-import { switchMap, startWith, map, share, tap } from 'rxjs/operators';
-import { CONFIG } from '../../config/config';
-import { Page, Sort, PaginatedEndpoint, Delete } from './page';
+import { DataSource } from "@angular/cdk/collections";
+import { Observable, Subject, BehaviorSubject, combineLatest } from "rxjs";
+import { switchMap, startWith, map, share, tap } from "rxjs/operators";
+import { CONFIG } from "../../config/config";
+import { Page, Sort, PaginatedEndpoint, Delete } from "./page";
 
 export interface SimpleDataSource<T> extends DataSource<T> {
   connect(): Observable<T[]>;
@@ -31,14 +31,17 @@ export class PaginatedDataSource<T> implements SimpleDataSource<T> {
       switchMap(([removeItems, sort]) =>
         this.pageNumber.pipe(
           startWith(0),
-          switchMap((page) => {
-            return this.endpoint({ page, sort, size: this.pageSize }, removeItems);
+          switchMap(page => {
+            return this.endpoint(
+              { page, sort, size: this.pageSize },
+              removeItems
+            );
           })
         )
       ),
       share()
     );
-    this.connect().subscribe((data) => (this.data = data));
+    this.connect().subscribe(data => (this.data = data));
   }
 
   sortBy(sort: Partial<Sort<T>>) {
@@ -58,7 +61,7 @@ export class PaginatedDataSource<T> implements SimpleDataSource<T> {
   }
 
   connect() {
-    return this.page$.pipe(map((page) => page.content));
+    return this.page$.pipe(map(page => page.content));
   }
 
   disconnect() {}
